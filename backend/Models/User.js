@@ -14,10 +14,12 @@ const UserSchema = new Schema({
   gamertag: {
     type: String,
     required: true,
+    default: "Anonymus",
   },
   country: {
     type: String,
     required: true,
+    default: "Unspecified",
   },
   password: {
     type: String,
