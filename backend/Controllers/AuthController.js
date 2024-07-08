@@ -8,7 +8,7 @@ const signup = async (req, res) => {
     const user = await UserModel.findOne({ email });
     if (user) {
       return res.status(409).json({
-        message: "User already exists, you can login",
+        message: "User with this email already exists, you can login!",
         success: false,
       });
     }
@@ -37,7 +37,7 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await UserModel.findOne({ email });
-    const errorMsg = "Auth failed email or password is wrong";
+    const errorMsg = "Your e-mail or password is incorrect!";
     if (!user) {
       return res.status(403).json({ message: errorMsg, success: false });
     }

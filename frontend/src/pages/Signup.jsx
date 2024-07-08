@@ -32,7 +32,7 @@ function Signup() {
       return handleError("All fields are required!");
     }
     try {
-      const url = `gamebook-backend.vercel.app/auth/signup`;
+      const url = `https://gamebook-backend.vercel.app/auth/signup`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -44,16 +44,17 @@ function Signup() {
       const result = await response.json();
 
       const { success, message, error } = result;
-      if (success) {
+      if (response.status === 409) {
+        handleError(message);
+      } else if (success) {
         handleSuccess(message);
         setTimeout(() => {
           navigate("/login");
         }, 1000);
       } else if (error) {
-        const details = error?.details[0].message;
-        handleError(details);
+        handleError(error);
       } else if (!success) {
-        handleError(message);
+        handleError(error);
       }
       console.log(result);
     } catch (err) {
